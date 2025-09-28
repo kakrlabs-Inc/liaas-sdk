@@ -1,0 +1,1767 @@
+openapi: 3.0.1
+info:
+  title: KakrLabs-SDK-Creator
+  version: "1.0"
+servers:
+- url: /
+paths:
+  /api/Address/create:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: encryptedPassphrase
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAddressdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateAddressdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateAddressdto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Create a new address in a particular wallet
+      tags:
+      - Address
+  /api/Address/create-muti-sig-address:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: encryptedPassphrase
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createMultiSignatureAddressdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/createMultiSignatureAddressdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/createMultiSignatureAddressdto"
+      responses:
+        "200":
+          description: OK
+      summary: Create a multi-signature address. this address created will be encrypted
+        but cannot be imported to other wallets.
+      tags:
+      - Address
+  /api/Address/address-details:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get address details. all address details are returned.
+      tags:
+      - Address
+  /api/Address/sign-message:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignMessagedto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/SignMessagedto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/SignMessagedto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: sign a message with address private key
+      tags:
+      - Address
+  /api/Address/verify-message:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyMessagedto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/VerifyMessagedto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/VerifyMessagedto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: verify signed message
+      tags:
+      - Address
+  /api/Address/address-transaction:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: take
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: skip
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: retruns all transactions of an address without wallet
+      tags:
+      - Address
+  /api/Address/address-balance:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: address balance - returns the confirmed and unconfirmed balance
+      tags:
+      - Address
+  /api/Address/address-private-key:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: wallet
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: encryptedPassphrase
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get the address private key using encrypted passphrase
+      tags:
+      - Address
+  /api/Address/address-private-key-v2:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: wallet
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: mnemonics
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get the address private key using mnemonics
+      tags:
+      - Address
+  /api/Address/screen-address:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: wallet
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: mnemonics
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: "Screen address to check the validity of the address, iswitness or\
+        \ not, isScript or not , isMweb or not and also returns the scriptPubKey"
+      tags:
+      - Address
+  /api/Address/generate-default-address:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: encryptedPassphrase
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateDefaultAddressdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/GenerateDefaultAddressdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/GenerateDefaultAddressdto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Generate a default address for a wallet. This address can be imported
+        to other wallets.
+      tags:
+      - Address
+  /api/Blocks/blockchain-info:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Get Litcoin Block information
+      tags:
+      - Blocks
+  /api/Blocks/block-stat:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: blockheight
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get block statistics
+      tags:
+      - Blocks
+  /api/Blocks/block-header:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: blockheight
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get block header information
+      tags:
+      - Blocks
+  /api/Blocks/block-transaction:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: blockhash
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get block Transactions in details
+      tags:
+      - Blocks
+  /api/Litecoin/transaction-details:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: txid
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Litecoin transaction details - returns the full details of a transaction
+        id
+      tags:
+      - Litecoin
+  /api/Litecoin/get-utxo-details:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: txid
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: vout_n
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Litecoin UTXO details - returns the details of a UTXO using the transaction
+        id and vout index
+      tags:
+      - Litecoin
+  /api/Transactions/send-funds-from-wallet:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: encryptedPassphrase
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendFromWalletdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/SendFromWalletdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/SendFromWalletdto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Send a funds from one address to another using wallet
+      tags:
+      - Transactions
+  /api/Transactions/create-raw-transaction:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: create raw transaction - returns the transaction hash
+      tags:
+      - Transactions
+  /api/Transactions/create-raw-transaction-v2:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondtoV2"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondtoV2"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondtoV2"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: create raw transaction with the address UTXOs - returns the transaction
+        hash
+      tags:
+      - Transactions
+  /api/Transactions/create-raw-transaction-v3:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondtoV3"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondtoV3"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateRawTransactiondtoV3"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: create raw transaction with the service Fee address attached - returns
+        the transaction hash
+      tags:
+      - Transactions
+  /api/Transactions/sign-transaction:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignRawTransactiondto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/SignRawTransactiondto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/SignRawTransactiondto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: sign a created raw transaction - returns the signed transaction hash
+      tags:
+      - Transactions
+  /api/Transactions/broadcast-transaction:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BroadcastTransactiondto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/BroadcastTransactiondto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/BroadcastTransactiondto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: broadcast transaction on the Litecoin blockchain
+      tags:
+      - Transactions
+  /api/Utilities/get-blockchain-otp:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: signature
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Gets OTP using the blockchain information using the signature of a
+        signed message.
+      tags:
+      - Utilities
+  /api/Utilities/verify-otp:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyOTPdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/VerifyOTPdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/VerifyOTPdto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Verifies the OTP on the blockchain.
+      tags:
+      - Utilities
+  /api/Wallet/create:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Create a new wallet. this wallet created but not encrypted and cannot
+        be imported to other wallets.
+      tags:
+      - Wallet
+  /api/Wallet/encrypt-wallet:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EncryptWalletDto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/EncryptWalletDto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/EncryptWalletDto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Encrypt a wallet. this wallet created  cannot be imported to other
+        wallets.
+      tags:
+      - Wallet
+  /api/Wallet/create-encrypted-wallet:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Create an encrypted wallet. this wallet created will be encrypted but
+        cannot be imported to other wallets.
+      tags:
+      - Wallet
+  /api/Wallet/create-importable-wallet:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Create an importable wallet. this wallet created will be encrypted
+        and can be imported to other wallets.
+      tags:
+      - Wallet
+  /api/Wallet/create-importable-encrypted-wallet:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/CreateWalletRequest"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Create an importable encrypted wallet. this wallet created will be
+        encrypted and can be imported to other wallets.
+      tags:
+      - Wallet
+  /api/Wallet/import-wallet:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImportWalletdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/ImportWalletdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/ImportWalletdto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Import a wallet. this wallet created will be encrypted and can be imported
+        to other wallets.
+      tags:
+      - Wallet
+  /api/Wallet/details:
+    get:
+      parameters:
+      - description: ""
+        explode: true
+        in: query
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get the details of a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/transactions:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: skip
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: count
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get the transactions of a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/balance:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Get the balance of a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/addresses:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Get all addresses of a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/change-passphrase:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePassphrasedto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/ChangePassphrasedto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/ChangePassphrasedto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Change the passphrase of a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/official-address:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Get the official address of a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/sign-wallet-message:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/signMessageUsingWalletdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/signMessageUsingWalletdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/signMessageUsingWalletdto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Sign a message using the wallet.
+      tags:
+      - Wallet
+  /api/Wallet/wallet-address-balance:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get the balance of a specific address in a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/wallet-address-transactions:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: ""
+        explode: true
+        in: query
+        name: address
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Get the transactions of a specific address in a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/set-wallet-mnemonics:
+    post:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: walletName
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: encryptedPassphrase
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetWalletMnemonicsdto"
+          text/json:
+            schema:
+              $ref: "#/components/schemas/SetWalletMnemonicsdto"
+          application/*+json:
+            schema:
+              $ref: "#/components/schemas/SetWalletMnemonicsdto"
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Set the mnemonics of a wallet.
+      tags:
+      - Wallet
+  /api/Wallet/wallet-default-address:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: mnemonics
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: addressType
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: default addresss of a wallet without private key
+      tags:
+      - Wallet
+  /api/Wallet/wallet-default-address-v2:
+    get:
+      parameters:
+      - description: ""
+        explode: false
+        in: header
+        name: nodeUrlOrApiAccessKey
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: header
+        name: mnemonics
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: addressType
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: default addresss of a wallet with private key
+      tags:
+      - Wallet
+components:
+  schemas:
+    BroadcastTransactiondto:
+      additionalProperties: false
+      example:
+        signedTxHash: signedTxHash
+      properties:
+        signedTxHash:
+          minLength: 1
+          type: string
+      required:
+      - signedTxHash
+      type: object
+    ChangePassphrasedto:
+      additionalProperties: false
+      example:
+        wallet: wallet
+        old_passphrase: old_passphrase
+        new_passphrase: new_passphrase
+      properties:
+        wallet:
+          minLength: 1
+          type: string
+        old_passphrase:
+          minLength: 1
+          type: string
+        new_passphrase:
+          minLength: 1
+          type: string
+      required:
+      - new_passphrase
+      - old_passphrase
+      - wallet
+      type: object
+    CreateAddressdto:
+      additionalProperties: false
+      example:
+        label: label
+        type: 0
+      properties:
+        label:
+          nullable: true
+          type: string
+        type:
+          format: int32
+          type: integer
+      type: object
+    CreateRawTransactiondto:
+      additionalProperties: false
+      example:
+        senderAddress: senderAddress
+        amount: 0.8008281904610115
+        recipientAddress: recipientAddress
+      properties:
+        recipientAddress:
+          minLength: 1
+          type: string
+        senderAddress:
+          minLength: 1
+          type: string
+        amount:
+          format: double
+          type: number
+      required:
+      - amount
+      - recipientAddress
+      - senderAddress
+      type: object
+    CreateRawTransactiondtoV2:
+      additionalProperties: false
+      example:
+        senderAddress: senderAddress
+        amount: 0.8008281904610115
+        utxos:
+        - utxos
+        - utxos
+        vouts_n:
+        - 6
+        - 6
+        recipientAddress: recipientAddress
+      properties:
+        senderAddress:
+          minLength: 1
+          type: string
+        recipientAddress:
+          minLength: 1
+          type: string
+        amount:
+          format: double
+          type: number
+        utxos:
+          items:
+            type: string
+          type: array
+        vouts_n:
+          items:
+            format: int32
+            type: integer
+          type: array
+      required:
+      - amount
+      - recipientAddress
+      - senderAddress
+      - utxos
+      - vouts_n
+      type: object
+    CreateRawTransactiondtoV3:
+      additionalProperties: false
+      example:
+        serviceFeeAmount: 0.8008282
+        serviceFeeAddress: serviceFeeAddress
+        senderAddress: senderAddress
+        amount: 6.0274563
+        recipientAddress: recipientAddress
+      properties:
+        senderAddress:
+          minLength: 1
+          type: string
+        serviceFeeAddress:
+          minLength: 1
+          type: string
+        recipientAddress:
+          minLength: 1
+          type: string
+        serviceFeeAmount:
+          format: float
+          type: number
+        amount:
+          format: float
+          type: number
+      required:
+      - amount
+      - recipientAddress
+      - senderAddress
+      - serviceFeeAddress
+      - serviceFeeAmount
+      type: object
+    CreateWalletRequest:
+      additionalProperties: false
+      example:
+        walletName: walletName
+      properties:
+        walletName:
+          minLength: 1
+          type: string
+      required:
+      - walletName
+      type: object
+    EncryptWalletDto:
+      additionalProperties: false
+      example:
+        passphrase: passphrase
+      properties:
+        passphrase:
+          minLength: 1
+          type: string
+      required:
+      - passphrase
+      type: object
+    GenerateDefaultAddressdto:
+      additionalProperties: false
+      example:
+        addressType: 0
+        label: label
+      properties:
+        addressType:
+          format: int32
+          type: integer
+        label:
+          nullable: true
+          type: string
+      type: object
+    ImportWalletdto:
+      additionalProperties: false
+      example:
+        new_wallet_name: new_wallet_name
+        mnemonics: mnemonics
+      properties:
+        new_wallet_name:
+          minLength: 1
+          type: string
+        mnemonics:
+          minLength: 1
+          type: string
+      required:
+      - mnemonics
+      - new_wallet_name
+      type: object
+    SendFromWalletdto:
+      additionalProperties: false
+      example:
+        amount: 0.8008281904610115
+        amountIncludeFees: true
+        recipientName: recipientName
+        description: description
+        recipientAddress: recipientAddress
+      properties:
+        recipientAddress:
+          nullable: true
+          type: string
+        recipientName:
+          nullable: true
+          type: string
+        amount:
+          format: double
+          type: number
+        description:
+          nullable: true
+          type: string
+        amountIncludeFees:
+          type: boolean
+      type: object
+    SetWalletMnemonicsdto:
+      additionalProperties: false
+      example:
+        mnemonics: mnemonics
+      properties:
+        mnemonics:
+          description: The mnemonics to set for the wallet.
+          minLength: 1
+          type: string
+      required:
+      - mnemonics
+      type: object
+    SignMessagedto:
+      additionalProperties: false
+      example:
+        message: message
+        addressPrivatKey: addressPrivatKey
+      properties:
+        message:
+          minLength: 1
+          type: string
+        addressPrivatKey:
+          minLength: 1
+          type: string
+      required:
+      - addressPrivatKey
+      - message
+      type: object
+    SignRawTransactiondto:
+      additionalProperties: false
+      example:
+        walletName: walletName
+        addressPrivateKey: addressPrivateKey
+        txhash: txhash
+      properties:
+        walletName:
+          minLength: 1
+          type: string
+        addressPrivateKey:
+          minLength: 1
+          type: string
+        txhash:
+          minLength: 1
+          type: string
+      required:
+      - addressPrivateKey
+      - txhash
+      - walletName
+      type: object
+    VerifyMessagedto:
+      additionalProperties: false
+      example:
+        address: address
+        signature: signature
+        message: message
+      properties:
+        address:
+          minLength: 1
+          type: string
+        message:
+          minLength: 1
+          type: string
+        signature:
+          minLength: 1
+          type: string
+      required:
+      - address
+      - message
+      - signature
+      type: object
+    VerifyOTPdto:
+      additionalProperties: false
+      example:
+        code: code
+        signtaure: signtaure
+      properties:
+        signtaure:
+          minLength: 1
+          type: string
+        code:
+          minLength: 1
+          type: string
+      required:
+      - code
+      - signtaure
+      type: object
+    createMultiSignatureAddressdto:
+      additionalProperties: false
+      properties:
+        addresses:
+          description: "addresses (L addresses) to be given priviledge to sign a transaction\
+            \ seperated with a comma for example LTm0jfypM0....Yi, Lkfr5tt......Mn"
+          minLength: 1
+          type: string
+        nreqired:
+          format: int32
+          type: integer
+        address_type:
+          minLength: 1
+          type: string
+      required:
+      - address_type
+      - addresses
+      - nreqired
+      type: object
+    signMessageUsingWalletdto:
+      additionalProperties: false
+      properties:
+        message:
+          minLength: 1
+          type: string
+        passphrase:
+          minLength: 1
+          type: string
+        address:
+          minLength: 1
+          type: string
+      required:
+      - address
+      - message
+      - passphrase
+      type: object
+
